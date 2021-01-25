@@ -15,37 +15,26 @@ import static org.upgrad.upstac.exception.UpgradResponseStatusException.asBadReq
 @RestController
 public class RegisterController {
 
-
-
     private RegisterService registerService;
-
 
     private static final Logger log = LoggerFactory.getLogger(RegisterController.class);
 
-
     @Autowired
-    public RegisterController( RegisterService userService) {
-
+    public RegisterController(RegisterService userService) {
         this.registerService = userService;
     }
 
-
     @RequestMapping(value = "/auth/register", method = RequestMethod.POST)
     public User saveUser(@RequestBody RegisterRequest user) {
-
         try {
             return registerService.addUser(user);
         } catch (AppException e) {
-            throw   asBadRequest(e.getMessage());
+            throw asBadRequest(e.getMessage());
         }
-
-
     }
-
 
     @RequestMapping(value = "/auth/doctor/register", method = RequestMethod.POST)
     public User saveDoctor(@RequestBody RegisterRequest user) {
-
         try {
             return registerService.addDoctor(user);
         } catch (AppException e) {
@@ -53,14 +42,13 @@ public class RegisterController {
         }
     }
 
-
     @RequestMapping(value = "/auth/tester/register", method = RequestMethod.POST)
     public User saveTester(@RequestBody RegisterRequest user) {
-
         try {
             return registerService.addTester(user);
         } catch (AppException e) {
             throw asBadRequest(e.getMessage());
         }
     }
+
 }

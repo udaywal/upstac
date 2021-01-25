@@ -11,9 +11,7 @@ import java.util.Optional;
 
 public class DateParser {
 
-
     public static LocalDate getDateFromString(String input) {
-
         try {
             String pattern = "yyyy-MM-dd";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -23,35 +21,23 @@ public class DateParser {
             throw new AppException("Invalid Date String" + input);
 
         }
-
-
     }
 
     public static String getStringFromDate(LocalDate input) {
-
-        //"2018-09-09"
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
         return simpleDateFormat.format(asDate(input));
-
-
     }
 
     public static LocalDate asLocalDate(Date input) {
         return Optional.ofNullable(input)
                 .map(date -> Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate())
                 .orElseThrow(() -> new AppException("Invalid Input"));
-
     }
 
     public static Date asDate(LocalDate input) {
-
-        return Optional.ofNullable(input)
-                .map(date -> Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()))
+        return Optional.ofNullable(input).map(date -> Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .orElseThrow(() -> new AppException("Invalid Input"));
-
     }
-
 
 }

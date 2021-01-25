@@ -10,5 +10,4 @@ public class UpstacApplication {
 		SpringApplication.run(UpstacApplication.class, args);
 	}
 
-
 }

@@ -22,7 +22,6 @@ import java.util.List;
 import static org.upgrad.upstac.exception.UpgradResponseStatusException.asBadRequest;
 import static org.upgrad.upstac.exception.UpgradResponseStatusException.asConstraintViolation;
 
-
 @RestController
 @RequestMapping("/api/labrequests")
 public class LabRequestController {
@@ -43,37 +42,35 @@ public class LabRequestController {
 
     @GetMapping("/to-be-tested")
     @PreAuthorize("hasAnyRole('TESTER')")
-    public List<TestRequest> getForTests()  {
-       return testRequestQueryService.findBy(RequestStatus.INITIATED);
+    public List<TestRequest> getForTests() {
+        return testRequestQueryService.findBy(RequestStatus.INITIATED);
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('TESTER')")
-    public List<TestRequest> getForTester()  {
+    public List<TestRequest> getForTester() {
         User tester = userLoggedInService.getLoggedInUser();
         return testRequestQueryService.findByTester(tester);
     }
-
 
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/assign/{id}")
     public TestRequest assignForLabTest(@PathVariable Long id) {
         User tester = userLoggedInService.getLoggedInUser();
-        return testRequestUpdateService.assignForLabTest(id,tester);
+        return testRequestUpdateService.assignForLabTest(id, tester);
     }
 
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/update/{id}")
-    public TestRequest updateLabTest(@PathVariable Long id,@RequestBody CreateLabResult createLabResult) {
+    public TestRequest updateLabTest(@PathVariable Long id, @RequestBody CreateLabResult createLabResult) {
         try {
             User tester = userLoggedInService.getLoggedInUser();
-            return testRequestUpdateService.updateLabTest(id,createLabResult,tester);
+            return testRequestUpdateService.updateLabTest(id, createLabResult, tester);
         } catch (ConstraintViolationException e) {
             throw asConstraintViolation(e);
         } catch (AppException e) {
             throw asBadRequest(e.getMessage());
         }
     }
-
 
 }

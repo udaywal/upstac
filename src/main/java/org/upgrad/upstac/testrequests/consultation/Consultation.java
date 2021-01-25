@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Entity
 public class Consultation {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,20 +24,11 @@ public class Consultation {
 
     private DoctorSuggestion suggestion;
 
-
     private String comments;
 
     private LocalDate updatedOn;
 
     @ManyToOne
     User doctor;
-
-
-
-
-
-
-
-
 
 }

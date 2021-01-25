@@ -4,16 +4,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class LoginRequest {
 
-    @ApiModelProperty(example = "user")
-    private String userName;
-
+	@ApiModelProperty(example = "user")
+	private String userName;
 
 	private String password;
 
 	public LoginRequest() {
 
 	}
-
 
 	public String getUserName() {
 		return userName;

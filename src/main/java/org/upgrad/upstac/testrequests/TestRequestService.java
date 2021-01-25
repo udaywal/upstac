@@ -17,7 +17,7 @@ public class TestRequestService {
     private TestRequestRepository testRequestRepository;
     private static Logger logger = LoggerFactory.getLogger(TestRequestService.class);
 
-    public TestRequest createTestRequestFrom(User user,CreateTestRequest createTestRequest) {
+    public TestRequest createTestRequestFrom(User user, CreateTestRequest createTestRequest) {
 
         validateExistingRequestsNotPresentWithSameDetails(createTestRequest);
 
@@ -38,25 +38,20 @@ public class TestRequestService {
     }
 
     public void validateExistingRequestsNotPresentWithSameDetails(CreateTestRequest createTestRequest) {
-        
-        List<TestRequest> testRequests = testRequestRepository.findByEmailOrPhoneNumber(createTestRequest.getEmail(), createTestRequest.getPhoneNumber());
-
+        List<TestRequest> testRequests = testRequestRepository.findByEmailOrPhoneNumber(createTestRequest.getEmail(),
+                createTestRequest.getPhoneNumber());
         for (TestRequest testRequest : testRequests) {
             if (testRequest.getStatus().equals(RequestStatus.COMPLETED) == false)
                 throw new AppException("A Request with same PhoneNumber or Email is already in progress ");
         }
-
     }
 
-    public List<TestRequest> findByStatus(RequestStatus requestStatus){
-
+    public List<TestRequest> findByStatus(RequestStatus requestStatus) {
         return testRequestRepository.findByStatus(requestStatus);
     }
 
-    public List<TestRequest> getHistoryFor(User loggedInUser){
-
+    public List<TestRequest> getHistoryFor(User loggedInUser) {
         return testRequestRepository.findByCreatedBy(loggedInUser);
     }
-
 
 }

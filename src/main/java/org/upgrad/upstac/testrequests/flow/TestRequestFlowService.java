@@ -17,7 +17,6 @@ public class TestRequestFlowService {
     @Autowired
     private TestRequestFlowRepository testRequestFlowRepository;
 
-
     @Transactional
     public void log(TestRequest testRequest, RequestStatus from, RequestStatus to, User changedBy) {
         TestRequestFlow testRequestFlow = new TestRequestFlow();
@@ -27,8 +26,6 @@ public class TestRequestFlowService {
         testRequestFlow.setToStatus(to);
         testRequestFlowRepository.save(testRequestFlow);
     }
-
-
 
     public List<TestRequestFlow> findByRequest(TestRequest testRequest) {
 

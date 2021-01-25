@@ -1,6 +1,5 @@
 package org.upgrad.upstac.testrequests;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import java.util.Optional;
 
 import static org.upgrad.upstac.exception.UpgradResponseStatusException.asBadRequest;
 
-
 @RestController
 public class TestRequestController {
 
@@ -32,32 +30,26 @@ public class TestRequestController {
     @Autowired
     private TestRequestQueryService testRequestQueryService;
 
-
     @PostMapping("/api/testrequests")
     public TestRequest createRequest(@RequestBody CreateTestRequest testRequest) {
         try {
             User user = userLoggedInService.getLoggedInUser();
             TestRequest result = testRequestService.createTestRequestFrom(user, testRequest);
             return result;
-        }  catch (AppException e) {
+        } catch (AppException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
     @GetMapping("/api/testrequests")
     public List<TestRequest> requestHistory() {
-
         User user = userLoggedInService.getLoggedInUser();
         return testRequestService.getHistoryFor(user);
-
     }
 
     @GetMapping("/api/testrequests/{id}")
     public Optional<TestRequest> getById(@PathVariable Long id) {
-
         return testRequestQueryService.getTestRequestById(id);
-
     }
-
 
 }

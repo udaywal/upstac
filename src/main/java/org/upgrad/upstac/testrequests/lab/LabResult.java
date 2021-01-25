@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Entity
 public class LabResult {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long resultId;
@@ -33,6 +32,5 @@ public class LabResult {
 
     @ManyToOne
     private User tester;
-
 
 }

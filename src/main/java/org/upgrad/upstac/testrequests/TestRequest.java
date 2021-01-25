@@ -19,7 +19,7 @@ public class TestRequest {
 
     @ManyToOne
     private User createdBy;
-    private LocalDate created=LocalDate.now();
+    private LocalDate created = LocalDate.now();
     private RequestStatus status = RequestStatus.INITIATED;
 
     private String name;
@@ -30,10 +30,10 @@ public class TestRequest {
     private String phoneNumber;
     private Integer pinCode;
 
-    @OneToOne(mappedBy="request")
+    @OneToOne(mappedBy = "request")
     Consultation consultation;
 
-    @OneToOne(mappedBy="request")
+    @OneToOne(mappedBy = "request")
     LabResult labResult;
 
 }

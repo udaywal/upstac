@@ -39,7 +39,8 @@ public class LabResultService {
 
     public LabResult updateLabTest(TestRequest testRequest, CreateLabResult createLabResult) {
 
-        LabResult labResult = labResultRepository.findByRequest(testRequest).orElseThrow(()-> new AppException("Invalid Request"));
+        LabResult labResult = labResultRepository.findByRequest(testRequest)
+                .orElseThrow(() -> new AppException("Invalid Request"));
 
         labResult.setBloodPressure(createLabResult.getBloodPressure());
         labResult.setComments(createLabResult.getComments());
@@ -52,6 +53,5 @@ public class LabResultService {
         return saveLabResult(labResult);
 
     }
-
 
 }

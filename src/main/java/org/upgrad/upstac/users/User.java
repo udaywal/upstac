@@ -35,7 +35,6 @@ public class User {
 
     private LocalDate dateOfBirth;
 
-
     private LocalDateTime updated;
 
     private String firstName;
@@ -45,9 +44,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
-
     private String lastName;
-
 
     private Gender gender;
 
@@ -57,32 +54,27 @@ public class User {
 
     private Integer pinCode;
 
-    //CascadeType.PERSIST has issues with many to many which makes us not use CascadeType.ALL
-    //So Using  other Cascades other than CascadeType.PERSIST
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
-//    @JoinTable(name = "USER_ROLES", joinColumns = {
-//            @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
-//            @JoinColumn(name = "ROLE_ID") })
-//    private Set<Role> roles;
+    // CascadeType.PERSIST has issues with many to many which makes us not use
+    // CascadeType.ALL
+    // So Using other Cascades other than CascadeType.PERSIST
+    // @ManyToMany(fetch = FetchType.EAGER, cascade =
+    // {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
+    // @JoinTable(name = "USER_ROLES", joinColumns = {
+    // @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+    // @JoinColumn(name = "ROLE_ID") })
+    // private Set<Role> roles;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-
     public boolean doesRoleIsDoctor() {
-
         return doesUserHasRole("DOCTOR");
-
-
     }
 
     public boolean doesUserHasRole(String s) {
-        return roles.stream()
-                .filter(role -> {
-                    return role.getName().equalsIgnoreCase(s);
-                })
-                .findFirst()
-                .isPresent();
+        return roles.stream().filter(role -> {
+            return role.getName().equalsIgnoreCase(s);
+        }).findFirst().isPresent();
     }
 
     public boolean doesRoleIsUser() {
@@ -97,9 +89,8 @@ public class User {
         return doesUserHasRole("TESTER");
     }
 
-    public Integer getAge(){
-
-        if(null != dateOfBirth)
+    public Integer getAge() {
+        if (null != dateOfBirth)
             return LocalDate.now().getYear() - dateOfBirth.getYear();
         else
             return 0;

@@ -17,19 +17,17 @@ public class MyMultiPartFile implements MultipartFile {
     private String contentType;
     private final byte[] content;
 
-
-
     public MyMultiPartFile(String name, InputStream contentStream) throws IOException {
         this(name, name, "image/png", (byte[]) FileCopyUtils.copyToByteArray(contentStream));
     }
 
-    public MyMultiPartFile(String name, @Nullable String originalFilename, @Nullable String contentType, @Nullable byte[] content) {
+    public MyMultiPartFile(String name, @Nullable String originalFilename, @Nullable String contentType,
+            @Nullable byte[] content) {
         this.name = name;
         this.originalFilename = originalFilename != null ? originalFilename : "";
         this.contentType = contentType;
         this.content = content != null ? content : new byte[0];
     }
-
 
     public String getName() {
         return this.name;
@@ -49,7 +47,7 @@ public class MyMultiPartFile implements MultipartFile {
     }
 
     public long getSize() {
-        return (long)this.content.length;
+        return (long) this.content.length;
     }
 
     public byte[] getBytes() throws IOException {
@@ -63,4 +61,5 @@ public class MyMultiPartFile implements MultipartFile {
     public void transferTo(File dest) throws IOException, IllegalStateException {
         FileCopyUtils.copy(this.content, dest);
     }
+    
 }

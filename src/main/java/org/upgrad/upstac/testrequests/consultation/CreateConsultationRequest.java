@@ -11,4 +11,5 @@ public class CreateConsultationRequest {
     private DoctorSuggestion suggestion;
 
     private String comments;
+    
 }
