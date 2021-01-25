@@ -34,18 +34,21 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
+    /* Government - get all users in the system */
     @PreAuthorize("hasRole('GOVERNMENT_AUTHORITY')")
     @GetMapping
     public List<User> listUsers() {
         return userService.findAll();
     }
 
+    /* Get profile */
     @PreAuthorize("hasAnyRole('USER','GOVERNMENT_AUTHORITY','TESTER','DOCTOR')")
     @GetMapping(value = "/details")
     public User getMyDetails() {
         return userLoggedInService.getLoggedInUser();
     }
 
+    /* Change user password */
     @PreAuthorize("hasAnyRole('USER','GOVERNMENT_AUTHORITY','TESTER','DOCTOR')")
     @PutMapping(value = "/changepassword")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
@@ -63,6 +66,7 @@ public class UserController {
 
     }
 
+    /* Close account */
     @PreAuthorize("hasAnyRole('USER','GOVERNMENT_AUTHORITY','TESTER','DOCTOR')")
     @DeleteMapping(value = "/closeaccount")
     public ResponseEntity<?> closeAccount() {
@@ -71,6 +75,7 @@ public class UserController {
         return ResponseEntity.ok("Succesfully Closed Account");
     }
 
+    /* Delete user */
     @PreAuthorize("hasAnyRole('GOVERNMENT_AUTHORITY')")
     @DeleteMapping(value = "/deleteuser/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
@@ -83,6 +88,7 @@ public class UserController {
         userService.updateStatusAndSave(user, AccountStatus.DELETED);
     }
 
+    /* Update user details */
     @PreAuthorize("hasAnyRole('USER','GOVERNMENT_AUTHORITY','TESTER','DOCTOR')")
     @PutMapping
     public User updateUserDetails(@RequestBody UpdateUserDetailRequest updateUserDetailRequest) {

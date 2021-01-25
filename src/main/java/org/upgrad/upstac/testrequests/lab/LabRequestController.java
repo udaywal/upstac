@@ -40,12 +40,14 @@ public class LabRequestController {
     @Autowired
     private UserLoggedInService userLoggedInService;
 
+    /* Tester - Requested Tests */
     @GetMapping("/to-be-tested")
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTests() {
         return testRequestQueryService.findBy(RequestStatus.INITIATED);
     }
 
+    /* Tester - Test history */
     @GetMapping
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTester() {
@@ -53,6 +55,7 @@ public class LabRequestController {
         return testRequestQueryService.findByTester(tester);
     }
 
+    /* Tester - Assign to me */
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/assign/{id}")
     public TestRequest assignForLabTest(@PathVariable Long id) {
@@ -60,6 +63,7 @@ public class LabRequestController {
         return testRequestUpdateService.assignForLabTest(id, tester);
     }
 
+    /* Tester - Update lab test result */
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/update/{id}")
     public TestRequest updateLabTest(@PathVariable Long id, @RequestBody CreateLabResult createLabResult) {

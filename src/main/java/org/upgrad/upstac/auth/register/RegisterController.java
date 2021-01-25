@@ -24,6 +24,7 @@ public class RegisterController {
         this.registerService = userService;
     }
 
+    /* Registering User(Patient) */
     @RequestMapping(value = "/auth/register", method = RequestMethod.POST)
     public User saveUser(@RequestBody RegisterRequest user) {
         try {
@@ -33,6 +34,7 @@ public class RegisterController {
         }
     }
 
+    /* Registering Doctor */
     @RequestMapping(value = "/auth/doctor/register", method = RequestMethod.POST)
     public User saveDoctor(@RequestBody RegisterRequest user) {
         try {
@@ -42,6 +44,7 @@ public class RegisterController {
         }
     }
 
+    /* Registering Tester */
     @RequestMapping(value = "/auth/tester/register", method = RequestMethod.POST)
     public User saveTester(@RequestBody RegisterRequest user) {
         try {

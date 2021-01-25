@@ -39,6 +39,7 @@ public class AuthController {
         this.userService = userService;
     }
 
+    /* Login */
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
 
@@ -58,7 +59,6 @@ public class AuthController {
             return ResponseEntity.ok(result);
 
         } catch (AppException e) {
-
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage(), e);
         } catch (AuthenticationException e) {
             e.printStackTrace();

@@ -40,12 +40,14 @@ public class ConsultationController {
     @Autowired
     private UserLoggedInService userLoggedInService;
 
+    /* Doctor - To get Requested Consultation */
     @GetMapping("/in-queue")
     @PreAuthorize("hasAnyRole('DOCTOR')")
     public List<TestRequest> getForConsultations() {
         return testRequestQueryService.findBy(RequestStatus.LAB_TEST_COMPLETED);
     }
 
+    /* Doctor - To get all Consulation Request History */
     @GetMapping
     @PreAuthorize("hasAnyRole('DOCTOR')")
     public List<TestRequest> getForDoctor() {
@@ -53,6 +55,7 @@ public class ConsultationController {
         return testRequestQueryService.findByDoctor(doctor);
     }
 
+    /* Doctor - Assign to me */
     @PreAuthorize("hasAnyRole('DOCTOR')")
     @PutMapping("/assign/{id}")
     public TestRequest assignForConsultation(@PathVariable Long id) {
@@ -64,6 +67,7 @@ public class ConsultationController {
         }
     }
 
+    /* Doctor - Update consultation result */
     @PreAuthorize("hasAnyRole('DOCTOR')")
     @PutMapping("/update/{id}")
     public TestRequest updateConsultation(@PathVariable Long id, @RequestBody CreateConsultationRequest testResult) {
