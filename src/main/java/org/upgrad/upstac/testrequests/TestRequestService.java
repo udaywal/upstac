@@ -15,12 +15,7 @@ public class TestRequestService {
 
     @Autowired
     private TestRequestRepository testRequestRepository;
-
-
-
     private static Logger logger = LoggerFactory.getLogger(TestRequestService.class);
-
-
 
     public TestRequest createTestRequestFrom(User user,CreateTestRequest createTestRequest) {
 
@@ -43,11 +38,10 @@ public class TestRequestService {
     }
 
     public void validateExistingRequestsNotPresentWithSameDetails(CreateTestRequest createTestRequest) {
+        
         List<TestRequest> testRequests = testRequestRepository.findByEmailOrPhoneNumber(createTestRequest.getEmail(), createTestRequest.getPhoneNumber());
 
-
         for (TestRequest testRequest : testRequests) {
-
             if (testRequest.getStatus().equals(RequestStatus.COMPLETED) == false)
                 throw new AppException("A Request with same PhoneNumber or Email is already in progress ");
         }

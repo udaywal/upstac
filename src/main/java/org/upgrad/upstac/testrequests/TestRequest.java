@@ -13,18 +13,14 @@ import java.time.LocalDate;
 @Entity
 public class TestRequest {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long requestId;
 
     @ManyToOne
     private User createdBy;
-
     private LocalDate created=LocalDate.now();
-
     private RequestStatus status = RequestStatus.INITIATED;
-
 
     private String name;
     private Gender gender;
